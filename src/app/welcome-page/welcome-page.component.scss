@@ -1,0 +1,44 @@
+.welcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1d1d1d;
+}
+
+.welcome-card {
+    width: 400px;
+    background-color: #212121;
+    color: #ffffff;
+}
+
+.welcome-card-header {
+    background-color: #212121;
+    border-bottom: 1px solid #757575;
+}
+
+mat-card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.welcome-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+button {
+    background-color: #2e2e2e;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.btn-icon {
+    margin-right: 10px;
+}

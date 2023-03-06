@@ -1,0 +1,105 @@
+app-navbar {
+    background-color: #212121;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 0 20px;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px);
+    background-color: #f5f5f5;
+}
+
+.info-card {
+    margin: 10px;
+    width: 500px;
+    background-color: #ffffff;
+    color: #212121;
+}
+
+.update-card {
+    margin: 10px;
+    width: 500px;
+    background-color: #ffffff;
+    color: #212121;
+}
+
+.card-header {
+    background-color: #212121;
+    color: #ffffff;
+}
+
+mat-card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+mat-card-content {
+    padding: 20px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+mat-icon {
+    margin-right: 5px;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px;
+}
+
+button {
+    background-color: #1e88e5;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #0d47a1;
+}
+
+.warn {
+    background-color: #f44336;
+}
+
+.warn:hover {
+    background-color: #ba000d;
+}
+
+input {
+    border: none;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 14px;
+    background-color: #f5f5f5;
+    color: #212121;
+}
+
+input:focus {
+    outline: none;
+    background-color: #ffffff;
+}
