@@ -1,17 +1,15 @@
+/**
+ * Importing required modules and components for UserLoginFormComponent
+ */
 import { Component, OnInit, Input } from '@angular/core';
-
-// You'll use this import to close the dialog on success
 import { MatDialogRef } from '@angular/material/dialog';
-
-// This import brings in the API calls we created in 6.2
 import { FetchApiDataService } from '../fetch-api-data.service';
-
-// This import is used to display notifications back to the user
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { Router } from '@angular/router';
 
-
+/**
+ * Component decorator for UserLoginFormComponent
+ */
 @Component({
   selector: 'app-user-login-form',
   templateUrl: './user-login-form.component.html',
@@ -19,8 +17,18 @@ import { Router } from '@angular/router';
 })
 export class UserLoginFormComponent {
 
+  /**
+   * Input decorator for login data
+   */
   @Input() loginData = { Username: '', Password: ''};
 
+  /**
+   * Constructor for UserLoginFormComponent
+   * @param fetchApiData service to fetch API data
+   * @param dialogRef reference to the dialog used for login form
+   * @param snackBar service to show snack bar messages
+   * @param router service to navigate between routes
+   */
 constructor(
     public fetchApiData: FetchApiDataService,
     public dialogRef: MatDialogRef<UserLoginFormComponent>,
@@ -31,18 +39,23 @@ constructor(
 ngOnInit(): void {
 }
 
-// This is the function responsible for sending the form inputs to the backend
+/**
+ * Method to login user by calling API service
+ */
 loginUser(): void {
     this.fetchApiData.userLogin (this.loginData).subscribe((response) => {
+      // Set username and token in local storage
       localStorage.setItem('username', response.user.Username);
       localStorage.setItem('token', response.token);
-  
-     this.dialogRef.close(); // This will close the modal on success!
+
+    // Close login form dialog
+     this.dialogRef.close(); 
+     // Show success message using snack bar
       console.log(response);
      this.snackBar.open('user login successfull!', 'OK', {
         duration: 2000
      });
-
+    // Navigate to movies route
      this.router.navigate(['movies']);
 
     }, (response) => {
@@ -52,5 +65,4 @@ loginUser(): void {
       });
     });
   }
-
   }

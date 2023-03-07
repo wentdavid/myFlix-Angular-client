@@ -1,8 +1,14 @@
+/**
+ * Importing required modules and components for ProfileComponent
+ */
 import { Component, OnInit, Input } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
+/**
+ * Component decorator for ProfileComponent
+ */
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -10,10 +16,22 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit{
 
+/**
+ * Object to hold user data
+ */
   user: any={}
 
-  @Input() userUpdateData = { Username: '', Password: '', Email: '', Birthday: '' };//Decorator
+  /**
+   * Input decorator for user update data
+   */
+  @Input() userUpdateData = { Username: '', Password: '', Email: '', Birthday: '' };
 
+  /**
+   * Constructor for ProfileComponent
+   * @param fetchApiDataService service to fetch API data
+   * @param snackBar service to show snack bar messages
+   * @param router service to navigate between routes
+   */
   constructor(
     public fetchApiDataService: FetchApiDataService,
     public snackBar: MatSnackBar,
@@ -25,9 +43,7 @@ export class ProfileComponent implements OnInit{
   }
 
   /**
-   * Make API call to get user info, change the format of 'Birthday' property of localDateString
-   * and set the uer variable to the user object
-   * @returns object with user information
+   * Method to get user information from API service
    */
   getUserInfo(): void {
     this.fetchApiDataService.getUser().subscribe((res: any)=>{
@@ -35,11 +51,13 @@ export class ProfileComponent implements OnInit{
         ...res,
         Birthday: new Date(res.Birthday).toLocaleDateString()
       };
-      //console.log('getUserInfo():', this.user);
       return this.user;
     })
   }
 
+  /**
+   * Method to delete user account
+   */
  onDeleteAccount(username: string): void {
     if (confirm('Are you sure you want to delete your account? This action cannnot be undone.')) {
       this.router.navigate(['welcome']).then(() => {
@@ -56,18 +74,17 @@ export class ProfileComponent implements OnInit{
     })
   } 
 
-
+/**
+ * Method to update user profile
+ */
   onUserUpdate(): void {
     this.fetchApiDataService.editUser(this.userUpdateData).subscribe((response) => {
-      // Logic for a successful user registration goes here! (To be implemented)
       localStorage.setItem('username', response.Username);
       this.snackBar.open('Your profile is updated successfully!', 'OK', {
         duration: 4000
       });
       window.location.reload();
     }, (response) => {
-      //Error response
-      //console.log('onUserUpdate() response2:', response);
       this.snackBar.open(response.errors[0].msg, 'OK', {
         duration: 6000
       });

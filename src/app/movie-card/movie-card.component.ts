@@ -1,3 +1,6 @@
+/**
+ * Importing required modules and components for MovieCardComponent
+ */
 import { Component, OnInit } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,6 +9,9 @@ import { GenreComponent } from '../genre/genre.component';
 import { DirectorComponent } from '../director/director.component';
 import { SynopsisComponent } from '../synopsis/synopsis.component';
 
+/**
+ * Component decorator for MovieCardComponent
+ */
 @Component({
   selector: 'app-movie-card',
   templateUrl: './movie-card.component.html',
@@ -17,12 +23,21 @@ export class MovieCardComponent implements OnInit {
   user: any={};
   favoriteMovies: any[]=[];
 
+  /**
+   * Constructor for MovieCardComponent
+   * @param fetchApiDataService service to fetch data from the API
+   * @param dialog service to open dialogs
+   * @param snackBar service to display snackbar notifications
+   */
   constructor(
     public fetchApiDataService: FetchApiDataService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
     ) {}
 
+  /**
+   * Initialize the component by calling the functions to get movies and favorite movies
+   */
   ngOnInit(): void {
     this.getMovies();
     this.getFavMovies();
@@ -36,12 +51,11 @@ export class MovieCardComponent implements OnInit {
   getMovies(): void {
     this.fetchApiDataService.getAllMovies().subscribe((res: any)=>{
       this.movies=res;
-      //console.log('getMovies():', this.movies);
       return this.movies;
     })
   }
 
-   /**
+  /**
    * Fetch user info via API and set favoriteMovies variable to FavoriteMovies property of the returned 
    * user object
    * @returns an array holding movieIDs
@@ -109,7 +123,6 @@ export class MovieCardComponent implements OnInit {
    * @param id - movieID of the particular movie
    */
   onToggleFavMovie(id: string): void {
-    //console.log(this.favoriteMovies);
     if(!this.favoriteMovies.includes(id)) {
       this.fetchApiDataService.addFavoriteMovie(id).subscribe((res)=>{
         this.favoriteMovies=res.FavoriteMovies;
@@ -117,8 +130,6 @@ export class MovieCardComponent implements OnInit {
           duration: 3000
        })
       }, (res) => {
-        //Error response
-        //console.log('loginUser() response2:', res);
         this.snackBar.open(res.message, 'OK', {
           duration: 4000
         });
@@ -130,8 +141,6 @@ export class MovieCardComponent implements OnInit {
           duration: 3000
        })
       }, (res) => {
-        //Error response
-        //console.log('loginUser() response2:', res);
         this.snackBar.open(res.message, 'OK', {
           duration: 4000
         });
