@@ -43,7 +43,7 @@
                 <mat-form-field>
                     <mat-label class="label">Password</mat-label>
                     <input matInput [(ngModel)]="userUpdateData.Password" value="{{userUpdateData.Password}}"
-                        placeholder="Passowrd" type="password" name="Passowrd" required>
+                        placeholder="Password" type="password" name="Password" required>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label class="label">Email</mat-label>
@@ -63,5 +63,29 @@
                 <mat-icon>edit</mat-icon>Update profile
             </button>
         </mat-card-actions>
+    </mat-card>
+
+    <!-- Fav Mov Section -->
+    <mat-card class="fav-mov-card">
+        <mat-card-header class="card-header">
+            <mat-card-title> Your favorite movies: </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div class="fav-mov-container">
+                <div *ngFor="let movie of favMovies">
+                    <div class="img-wrapper">
+                        <img class="movie-img" src={{movie.ImagePath}} alt={{movie.Title}} style="max-width: 200px">
+                    </div>
+                    <mat-card-header class="movie-title">
+                        <mat-card-title>{{movie.Title}}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <h3>{{movie.Genre.Name}}</h3>
+                        <h3>{{movie.Director.Name}}</h3>
+                    </mat-card-content>
+                </div>
+            </div>
+        </mat-card-content>
     </mat-card>
 </div>

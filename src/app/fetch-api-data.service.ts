@@ -8,7 +8,7 @@ import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 //Declaring the api url that will provide data for the client app
-const apiUrl = 'https://sheltered-crag-54265.herokuapp.com/';
+const apiUrl = 'https://sheltered-crag-54265.herokuapp.com';
 @Injectable({
   providedIn: 'root'
 })
@@ -35,7 +35,7 @@ export class FetchApiDataService {
  public userLogin(userDetails: any): Observable<any> {
     console.log(userDetails);
     return this.http
-      .post(apiUrl + 'login', userDetails)
+      .post(apiUrl + '/login', userDetails)
       .pipe(catchError(this.handleError));
   }
 
@@ -46,7 +46,7 @@ export class FetchApiDataService {
   getAllMovies(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-      .get(apiUrl + 'movies', {
+      .get(apiUrl + '/movies', {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
@@ -108,7 +108,7 @@ export class FetchApiDataService {
  * @returns Observable<any>
  */
   getUser(): Observable<any> {
-    const username = localStorage.getItem('user');
+    const username = localStorage.getItem('username');
     const token = localStorage.getItem('token');
     return this.http
       .get(`${apiUrl}/users/${username}`, {
@@ -124,7 +124,7 @@ export class FetchApiDataService {
    * @returns Observable<any>
    */
   getFavMovies(): Observable<any> {
-    const username = localStorage.getItem('user');
+    const username = localStorage.getItem('username');
     const token = localStorage.getItem('token');
     return this.http
       .get(`${apiUrl}/users/${username}`, {
@@ -145,7 +145,7 @@ export class FetchApiDataService {
    * @returns Observable<any>
    */
   addFavoriteMovie(movieId: string): Observable<any> {
-    const username = localStorage.getItem('user');
+    const username = localStorage.getItem('username');
     const token = localStorage.getItem('token');
     return this.http
       .post(
@@ -166,7 +166,7 @@ export class FetchApiDataService {
  * @returns Observable<any>
  */
     removeFavoriteMovie(movieId: string): Observable<any> {
-    const username = localStorage.getItem('user');
+    const username = localStorage.getItem('username');
     const token = localStorage.getItem('token');
     return this.http
       .delete(`${apiUrl}/users/${username}/movies/${movieId}`, {
@@ -181,7 +181,7 @@ export class FetchApiDataService {
    * @returns Observable<any>
    */
   editUser(updatedUser: any): Observable<any> {
-    const username = localStorage.getItem('user');
+    const username = localStorage.getItem('username');
     const token = localStorage.getItem('token');
     return this.http
       .put(`${apiUrl}/users/${username}`, updatedUser, {
@@ -195,7 +195,7 @@ export class FetchApiDataService {
    * @returns Observable<any>
    */
   deleteUser(): Observable<any> {
-    const username = localStorage.getItem('user');
+    const username = localStorage.getItem('username');
     const token = localStorage.getItem('token');
     return this.http
       .delete(`${apiUrl}/users/${username}`, {

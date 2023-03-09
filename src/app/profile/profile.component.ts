@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit{
  * Object to hold user data
  */
   user: any={}
+  favMovies: any=[]
 
   /**
    * Input decorator for user update data
@@ -40,6 +41,7 @@ export class ProfileComponent implements OnInit{
 
   ngOnInit(): void {
     this.getUserInfo();
+    this.getFavMovies();
   }
 
   /**
@@ -51,7 +53,20 @@ export class ProfileComponent implements OnInit{
         ...res,
         Birthday: new Date(res.Birthday).toLocaleDateString()
       };
+      this.userUpdateData = {
+        ...res,
+        Password: ''
+      }
       return this.user;
+    })
+  }
+
+  /**
+   * Method to get user's fav movies
+   */
+  getFavMovies(): void {
+    this.fetchApiDataService.getAllMovies().subscribe((res: any)=>{
+      this.favMovies = res.filter((m: any)=> this.user.FavoriteMovies.includes(m._id));
     })
   }
 
@@ -78,6 +93,10 @@ export class ProfileComponent implements OnInit{
  * Method to update user profile
  */
   onUserUpdate(): void {
+    if (this.userUpdateData.Password === '') {
+      this.snackBar.open('Please enter a password', 'OK', { duration: 3000 });
+    }
+
     this.fetchApiDataService.editUser(this.userUpdateData).subscribe((response) => {
       localStorage.setItem('username', response.Username);
       this.snackBar.open('Your profile is updated successfully!', 'OK', {
@@ -85,6 +104,7 @@ export class ProfileComponent implements OnInit{
       });
       window.location.reload();
     }, (response) => {
+      console.log("respsonse", response)
       this.snackBar.open(response.errors[0].msg, 'OK', {
         duration: 6000
       });
